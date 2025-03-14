@@ -1,0 +1,16 @@
+body{
+    background: white;
+}
+.joi{
+margin-left:40%;
+
+}
+.pau{
+    background-color:blue ;
+    color:white;
+    border:2px solid blue;
+
+}
+.tim{
+    display:flex;
+}

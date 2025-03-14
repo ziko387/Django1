@@ -1,0 +1,53 @@
+{% extends 'cooler/base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/hellen.css' %}">
+    {# create the form to register tasker #}
+    <form action="{% url 'add_tasker' %}" method="post">
+    {% csrf_token %}
+
+        <p class="pau">Add a tasker</p>
+        <input class="tim" type="text" name="user_tasker" placeholder="New tasker" width="1000">
+        <input class="tim" type="email" name="user_email" placeholder="email">
+    <button type="submit">Add tasker</button>
+
+    </form>
+    <br>
+{# form:the action attribute the file to process this form #}
+    <form action="{% url 'add_task' %}" method="post">
+            {% csrf_token %}
+    <input type="text" name="task" placeholder="new task" >
+        <select name="tasker">
+            <option value="">select a tasker</option>
+            {% for tasker in tasker %}
+            <option value="{{ tasker.id }}">
+                {{ tasker.username }}
+            </option>
+            {% endfor %}
+        </select>
+    <button type="submit">add_task</button>
+    </form>
+    <h4>my task</h4>
+    <ul>
+    {% for task in tasks %}
+    <li>
+    {{ task.task}} - completed: {{ task.done }}
+    <span>
+    -Assigned to-: {{ task.tasker.username }}
+    <span>
+        -email to-: {{ task.tasker.email }}
+        </span>
+    {%if task.done%}
+        completed
+    {% else %}
+        <a href="{% url 'mark_complete' task.id%}">mark as done</a>
+    {% endif %}
+    <a href="{% url 'delete_task' task.id %}">delete task</a>
+    </li>
+        {# show this on no tasks #}
+      {% empty %}
+        <li> task</li>
+
+    {% endfor %}
+    </ul>
+{% endblock %}
