@@ -126,3 +126,19 @@ websocket api
 2. add djangorestframework as part of the installed app
 3. have viewers return data as jason files
 4. create serializers (pick a data to showcase from API )
+
+
+### user authentication
+-identity management :: who is using the app
+-Authorisation :: users privilages :: what users can do once authentication
+
+## steps to create an authentication module
+1. within settings.py of the project modify authentication setting
+2. login_url ::# redirect unauthenticated users back to the login screen
+3. login_redirect_url::#after login what page will the  user see
+4. logout_redirect_url::## after logout,redirect the user back to the login screen
+ 
+create views .py of login and logout
+create render redirect template
+register the urls to map to the authentication function in views
+do migrations:: python manage.py migrate
