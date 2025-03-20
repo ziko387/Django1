@@ -142,3 +142,17 @@ create views .py of login and logout
 create render redirect template
 register the urls to map to the authentication function in views
 do migrations:: python manage.py migrate
+
+
+## extend the django user model
+1. import the class Abstractuser in our models.py
+2. create a custom user class,name should be custom user
+3. tell django to use the custom models for the user:settings.py
+4. update our forms  to also use the custom models
+a. create forms.py on the app folder , write out our custom user form
+5. update the views function to use the custom models/form
+6. updating the templates to reflect the new inputs::register.html
+7. ensure that our django can handle media
+a. inside settings,py media_url,media_root
+b. urls.py include the media reference as part of the urlpattern
+8. reset the data

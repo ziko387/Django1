@@ -77,6 +77,9 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 LOGIN_URL ="login"
 LOGIN_REDIRECT_URl = ""
 LOGOUT_REDIRECT_URL = "logout"
+AUTH_USER_MODEL = 'cooler.CustomUser'
+MEDIA_URL = '/media/'
+MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 
 

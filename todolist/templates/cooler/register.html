@@ -6,11 +6,15 @@
 </head>
 <body>
 <h2>Register</h2>
-<form method="post" action="{% url 'register' %}">
+<form enctype="multipart/form-data" method="post" action="{% url 'register' %}">
     {% csrf_token %}
     {# this part loads appropriate form as in views  #}
+    {% for field in form %}
+        <lable>{{ field.label }}</lable>
+    {{ field }}
+        <small>{{ field.error }}</small>
+{% endfor %}
 
-    {{ form.as_p }}
     <button type="submit">signup</button>
 </form>
 <p>Already have an account?><a href="{% url 'login' %}"></a>login</p>

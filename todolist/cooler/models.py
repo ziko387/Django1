@@ -1,11 +1,15 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import title
+#create a custom user model
+class CustomUser(AbstractUser):
+    phone_number = models.CharField(max_length=15, unique=True,blank=True,null=True)
+    profile_picture = models.ImageField(upload_to="profile_pictures",blank=True,null=True)
 
-
+    def __str__(self):
+        return self.username
 # Create your models here.
-
-
 class Taskers(models.Model):
     """custom class for our taskers"""
     username =models.CharField(max_length=100,unique=True)

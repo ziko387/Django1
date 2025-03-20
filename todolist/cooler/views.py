@@ -4,6 +4,7 @@ from .models import Task,Taskers
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from.forms import CustomUserCreationForm
 
 
 
@@ -12,14 +13,14 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 """"authentication views functionalities"""
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
 
         if form.is_valid():
             form.save()
             return redirect('login')
 
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'cooler/register.html',{'form':form})
 
 def user_login(request):
@@ -41,6 +42,7 @@ def logout_user(request):
 
 
 """these functionalities take care of CRUD :-)"""
+@login_required(login_url='login')
 def task_list(request):
     """this functions collects task items """
     # [] empty list is a default if task are empty
