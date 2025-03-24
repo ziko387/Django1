@@ -156,3 +156,8 @@ a. create forms.py on the app folder , write out our custom user form
 a. inside settings,py media_url,media_root
 b. urls.py include the media reference as part of the urlpattern
 8. reset the data
+9. pip install pillow
+
+
+
+
