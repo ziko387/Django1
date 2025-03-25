@@ -14,7 +14,7 @@ from.forms import CustomUserCreationForm
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST,request.FILES)
-
+        print(form.is_valid())
         if form.is_valid():
             form.save()
             return redirect('login')
@@ -47,12 +47,14 @@ def task_list(request):
     """this functions collects task items """
     # [] empty list is a default if task are empty
     #tasks=request.session.get('tasks',[])
-    #fenching task from db
-    tasks = Task.objects.all()
-    tasker = Taskers.objects.all()
+    #fenching task from db for logged in user
+    #tasks = Task.objects.all()
+    tasks=Task.objects.filter(user=request.user)
+    taskers = Task.objects.all()
     ##the render function returning a .html template
     return render(request,'cooler/task_list.html',
-                  {'tasks':tasks,"tasker":tasker})
+                  {'tasks':tasks,"tasker":taskers})
+@login_required(login_url='login')
 def add_task(request):
     if request.method == "POST":
         title = request.POST.get('task')
@@ -62,12 +64,13 @@ def add_task(request):
         if title:
             # validating the id entered
            tasker = Taskers.objects.get(id=tasker_id) if tasker_id else None
-           Task.objects.create(title=title,tasker=tasker)
+           Task.objects.create(title=title,tasker=tasker,user=request.user)
         messages.success(request, 'Tasker and task added successfully')
     else:
         messages.error(request, 'please enter a valid tasker')
     return redirect('task_list')
 
+@login_required(login_url='login')
 def add_tasker(request):
     if request.method == "POST":
         username = request.POST.get('user_tasker')

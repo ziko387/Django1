@@ -5,6 +5,8 @@
     {# create the form to register tasker #}
     <form action="{% url 'add_tasker' %}" method="post">
     {% csrf_token %}
+        <img src="{{ user.profile_pictures.url }}" width="200" height="200">
+        <h5><p>welcome to our app {{ user.username }}</p></h5>
         <p class="pau">Add a tasker</p>
         <input class="tim" type="text" name="user_tasker" placeholder="New tasker" width="1000">
         <input class="tim" type="email" name="user_email" placeholder="email">
@@ -13,11 +15,14 @@
     </form>
     <br>
 {# form:the action attribute the file to process this form #}
-    {# cre #}
+    {# create the form to register tasker #}
+    {# greet our logged in user #}
+    {# in ginja templating we #}
     <form action="{% url 'add_task' %}" method="post">
             {% csrf_token %}
     <input type="text" name="task" placeholder="new task" >
         <select name="tasker">
+
             <option value="">select a tasker</option>
             {% for tasker in tasker %}
             <option value="{{ tasker.id }}">
